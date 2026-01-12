@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maaf untuk Wardah</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Sacramento&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  background: linear-gradient(135deg, #ffd6e8, #ffeaf3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Poppins', sans-serif;
+  color:#6b2c4a;
+  overflow:hidden;
+}
+
+/* FOTO POJOK KANAN BAWAH */
+.photo{
+  position:fixed;
+  right:-10px;
+  bottom:-40px; /* bikin kaki kepotong dikit */
+  width:200px;
+  z-index:1;
+  opacity:0.95;
+  pointer-events:none;
+}
+
+/* CARD */
+.card{
+  position:relative;
+  background:rgba(255,255,255,0.9);
+  width:90%;
+  max-width:420px;
+  padding:30px 25px;
+  border-radius:24px;
+  box-shadow:0 20px 40px rgba(255,105,180,0.25);
+  text-align:center;
+  z-index:2;
+}
+
+h1{
+  font-family:'Sacramento', cursive;
+  font-size:42px;
+  color:#ff6fae;
+  margin-bottom:8px;
+}
+
+.sub{
+  font-size:13px;
+  color:#a05a7a;
+  margin-bottom:18px;
+}
+
+.message{
+  font-size:15px;
+  line-height:1.7;
+  min-height:200px;
+  white-space:pre-line;
+}
+
+.pink{
+  color:#ff5c9d;
+  font-weight:500;
+}
+
+.cursor{
+  display:inline-block;
+  width:2px;
+  height:18px;
+  background:#ff5c9d;
+  margin-left:4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  0%,50%{opacity:1;}
+  51%,100%{opacity:0;}
+}
+
+.love{
+  margin-top:22px;
+  font-family:'Sacramento', cursive;
+  font-size:36px;
+  color:#ff4f9a;
+  opacity:0;
+  transform:scale(0.8);
+  animation: loveShow 1.2s ease forwards;
+}
+
+@keyframes loveShow{
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.footer{
+  margin-top:18px;
+  font-size:13px;
+  color:#8b4c67;
+}
+</style>
+</head>
+<body>
+
+<!-- FOTO -->
+<img src="wardah.png" class="photo" alt="Wardah">
+
+<div class="card">
+  <h1>Maaf ya, Wardah</h1>
+  <div class="sub">dari Egi 🤍</div>
+
+  <div class="message" id="text"></div>
+  <span class="cursor" id="cursor"></span>
+
+  <div id="loveContainer"></div>
+
+  <div class="footer">
+    dengan tulus, ♥ Egi
+  </div>
+</div>
+
+<script>
+const textData = [
+  "egi tau Egi sering bikin wardah ",
+  { text: "kesel", pink: true },
+  ",\nsering juga bikin wardah ",
+  { text: "capek", pink: true },
+  ".\n\nKadang Egi terlalu ",
+  { text: "egois", pink: true },
+  ",\nterlalu keras,\ndan lupa kalau wardah juga butuh ",
+  { text: "dimengerti", pink: true },
+  ".\n\n",
+  { text: "Maaf", pink: true },
+  " kalau sikap dan kata-kata egi\nsering bikin wardah kesel.\n\negi sering buat ",
+  { text: "ulah", pink: true },
+  ",\nsering bikin emosi,\ndan ",
+  { text: "buat kecewa", pink: true },
+  ".\n\nTerima kasih karena masih ",
+  { text: "bertahan", pink: true },
+  ",\nmeski egi sering bikin wardah lelah."
+];
+
+const target = document.getElementById("text");
+const love = document.getElementById("loveContainer");
+const cursor = document.getElementById("cursor");
+
+let i = 0;
+let j = 0;
+let current = "";
+const speed = 40;
+
+function typeWriter(){
+  if(i < textData.length){
+    const part = textData[i];
+
+    if(typeof part === "string"){
+      if(j < part.length){
+        current += part.charAt(j);
+        target.innerHTML = current;
+        j++;
+        setTimeout(typeWriter, speed);
+      } else {
+        j = 0;
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    } else {
+      current += `<span class="pink">${part.text}</span>`;
+      target.innerHTML = current;
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  } else {
+    cursor.style.display = "none";
+    setTimeout(showLove, 600);
+  }
+}
+
+function showLove(){
+  love.innerHTML = `<div class="love">I LOVE YOUUUUU<br>WARDAHHH 🤍</div>`;
+}
+
+typeWriter();
+</script>
+
+</body>
+</html>
